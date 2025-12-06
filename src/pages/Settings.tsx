@@ -95,9 +95,8 @@ export default function Settings() {
             </div>
           </div>
 
-          <div className="flex gap-3 pt-4">
+          <div className="flex gap-3 justify-end">
             <Button>Salvar Alterações</Button>
-            <Button variant="outline">Cancelar</Button>
           </div>
         </CardContent>
       </Card>

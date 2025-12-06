@@ -14,10 +14,6 @@ export default function Dashboard() {
           <h1 className="text-4xl font-semibold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground">Visão geral das suas finanças</p>
         </div>
-        <Button className="gap-2">
-          <Plus className="h-4 w-4" />
-          Nova Transação
-        </Button>
       </div>
 
       {/* Cards */}

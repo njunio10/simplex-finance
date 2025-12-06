@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Search, Filter } from "lucide-react";
+import { Plus, Search, Filter, Trash2, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -66,9 +66,12 @@ const mockTransactions: Transaction[] = [
 ];
 
 export default function Transactions() {
-  const [transactions, setTransactions] = useState<Transaction[]>(mockTransactions);
+  const [transactions, setTransactions] =
+    useState<Transaction[]>(mockTransactions);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingTransaction, setEditingTransaction] = useState<Transaction | undefined>();
+  const [editingTransaction, setEditingTransaction] = useState<
+    Transaction | undefined
+  >();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<string>("all");
   const [filterCategory, setFilterCategory] = useState<string>("all");
@@ -79,8 +82,7 @@ export default function Transactions() {
     const matchesSearch = transaction.description
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
-    const matchesType =
-      filterType === "all" || transaction.type === filterType;
+    const matchesType = filterType === "all" || transaction.type === filterType;
     const matchesCategory =
       filterCategory === "all" || transaction.category === filterCategory;
     return matchesSearch && matchesType && matchesCategory;
@@ -92,7 +94,10 @@ export default function Transactions() {
         transactions.map((t) => (t.id === transaction.id ? transaction : t))
       );
     } else {
-      setTransactions([...transactions, { ...transaction, id: Date.now().toString() }]);
+      setTransactions([
+        ...transactions,
+        { ...transaction, id: Date.now().toString() },
+      ]);
     }
     setIsModalOpen(false);
     setEditingTransaction(undefined);
@@ -112,7 +117,9 @@ export default function Transactions() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Transações</h1>
-          <p className="text-muted-foreground">Gerencie suas receitas e despesas</p>
+          <p className="text-muted-foreground">
+            Gerencie suas receitas e despesas
+          </p>
         </div>
         <Button onClick={() => setIsModalOpen(true)} className="gap-2">
           <Plus className="h-4 w-4" />
@@ -174,7 +181,7 @@ export default function Transactions() {
                 <TableHead>Descrição</TableHead>
                 <TableHead>Categoria</TableHead>
                 <TableHead>Tipo</TableHead>
-                <TableHead className="text-right">Valor</TableHead>
+                <TableHead className="text-left">Valor</TableHead>
                 <TableHead className="text-right">Ações</TableHead>
               </TableRow>
             </TableHeader>
@@ -191,7 +198,9 @@ export default function Transactions() {
                   <TableCell>
                     <Badge
                       variant={
-                        transaction.type === "income" ? "default" : "destructive"
+                        transaction.type === "income"
+                          ? "default"
+                          : "destructive"
                       }
                       className={
                         transaction.type === "income" ? "bg-success" : ""
@@ -200,29 +209,36 @@ export default function Transactions() {
                       {transaction.type === "income" ? "Receita" : "Despesa"}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-right font-medium">
-                    {transaction.type === "income" ? "+" : "-"}
-                    {transaction.amount.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
+                  <TableCell className="text-left font-medium">
+                    <span className="inline-flex items-baseline justify-start tabular-nums font-mono">
+                      <span className="inline-block w-3 text-muted-foreground">
+                        {transaction.type === "income" ? "+" : "-"}
+                      </span>
+                      {transaction.amount.toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                    </span>
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button
-                        variant="ghost"
-                        size="sm"
+                        variant="secondary"
+                        size="icon"
+                        className="rounded-xl bg-secondary text-muted-foreground hover:bg-secondary/80"
                         onClick={() => handleEdit(transaction)}
+                        aria-label="Editar"
                       >
-                        Editar
+                        <Pencil className="!h-4 !w-4" />
                       </Button>
                       <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-destructive hover:text-destructive"
+                        variant="secondary"
+                        size="icon"
+                        className="rounded-xl bg-secondary text-destructive hover:bg-secondary/80"
                         onClick={() => handleDelete(transaction.id)}
+                        aria-label="Excluir"
                       >
-                        Excluir
+                        <Trash2 className="!h-4 !w-4" />
                       </Button>
                     </div>
                   </TableCell>

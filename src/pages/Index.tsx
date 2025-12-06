@@ -40,7 +40,11 @@ const Index = () => {
                     </Avatar>
                   </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" sideOffset={8} className="w-64">
+                <DropdownMenuContent
+                  align="end"
+                  sideOffset={8}
+                  className="w-64"
+                >
                   <DropdownMenuLabel className="px-3 py-3">
                     <div className="flex items-center gap-3">
                       <Avatar className="h-8 w-8">
@@ -50,17 +54,27 @@ const Index = () => {
                         </AvatarFallback>
                       </Avatar>
                       <div className="min-w-0">
-                        <p className="text-sm font-medium leading-none truncate">{userName}</p>
-                        <p className="text-xs text-muted-foreground truncate">{userEmail}</p>
+                        <p className="text-sm font-medium leading-none truncate">
+                          {userName}
+                        </p>
+                        <p className="text-xs text-muted-foreground truncate">
+                          {userEmail}
+                        </p>
                       </div>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="cursor-pointer" onSelect={() => navigate("/settings")}>
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onSelect={() => navigate("/settings")}
+                  >
                     <User className="mr-2 h-4 w-4" />
                     Meu perfil
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="text-destructive cursor-pointer" onSelect={() => console.log("logout")}>
+                  <DropdownMenuItem
+                    className="text-destructive cursor-pointer"
+                    onSelect={() => console.log("logout")}
+                  >
                     <LogOut className="mr-2 h-4 w-4" />
                     Sair
                   </DropdownMenuItem>
