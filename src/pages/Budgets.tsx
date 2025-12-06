@@ -50,11 +50,16 @@ export default function Budgets() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold">Orçamentos e Metas</h1>
-        <p className="text-muted-foreground">Acompanhe seus gastos e objetivos</p>
+        <p className="text-muted-foreground">
+          Acompanhe seus gastos e objetivos
+        </p>
       </div>
 
       {/* Alertas */}
-      <Alert className="border-destructive/50 bg-destructive/10">
+      <Alert
+        variant="destructive"
+        className="border-destructive/50 bg-destructive/10"
+      >
         <AlertCircle className="h-4 w-4 text-destructive" />
         <AlertDescription className="text-destructive">
           Atenção: Você já utilizou 82% do orçamento de Alimentação este mês.
@@ -75,14 +80,22 @@ export default function Budgets() {
                   <span className="text-muted-foreground">
                     R$ {budget.spent.toFixed(2)} de R$ {budget.limit.toFixed(2)}
                   </span>
-                  <span className={budget.percentage > 80 ? "text-destructive font-medium" : "text-muted-foreground"}>
+                  <span
+                    className={
+                      budget.percentage > 80
+                        ? "text-destructive font-medium"
+                        : "text-muted-foreground"
+                    }
+                  >
                     {budget.percentage}%
                   </span>
                 </div>
                 <Progress
                   value={budget.percentage}
                   className="h-2"
-                  indicatorClassName={budget.percentage > 80 ? "bg-destructive" : "bg-success"}
+                  indicatorClassName={
+                    budget.percentage > 80 ? "bg-destructive" : "bg-success"
+                  }
                 />
               </CardContent>
             </Card>
@@ -107,11 +120,18 @@ export default function Budgets() {
                   <span className="text-muted-foreground">
                     R$ {goal.current.toFixed(2)} de R$ {goal.target.toFixed(2)}
                   </span>
-                  <span className="text-primary font-medium">{goal.percentage}%</span>
+                  <span className="text-primary font-medium">
+                    {goal.percentage}%
+                  </span>
                 </div>
-                <Progress value={goal.percentage} className="h-2" indicatorClassName="bg-primary" />
+                <Progress
+                  value={goal.percentage}
+                  className="h-2"
+                  indicatorClassName="bg-primary"
+                />
                 <p className="text-xs text-muted-foreground">
-                  Faltam R$ {(goal.target - goal.current).toFixed(2)} para atingir sua meta
+                  Faltam R$ {(goal.target - goal.current).toFixed(2)} para
+                  atingir sua meta
                 </p>
               </CardContent>
             </Card>

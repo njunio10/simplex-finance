@@ -1,4 +1,10 @@
-import { LayoutDashboard, ArrowLeftRight, Target, TrendingUp, Repeat2 } from "lucide-react";
+import {
+  LayoutDashboard,
+  ArrowLeftRight,
+  Target,
+  TrendingUp,
+  Repeat2,
+} from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
@@ -15,8 +21,8 @@ import {
 const menuItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
   { title: "Transações", url: "/transactions", icon: ArrowLeftRight },
-  { title: "Orçamentos e Metas", url: "/budgets", icon: Target },
-  { title: "Cotações e Investimentos", url: "/market-data", icon: TrendingUp },
+  { title: "Orçamentos/Metas", url: "/budgets", icon: Target },
+  { title: "Cotações/Investimentos", url: "/market-data", icon: TrendingUp },
   { title: "Conversão de Moedas", url: "/currency-converter", icon: Repeat2 },
 ];
 
@@ -31,7 +37,10 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-border/50 bg-sidebar">
+    <Sidebar
+      collapsible="icon"
+      className="border-r border-border/50 bg-sidebar"
+    >
       <SidebarContent className="px-3 py-3 group-data-[collapsible=icon]:px-0">
         {/* Logo */}
         <div className="px-3 mb-3 group-data-[collapsible=icon]:px-0">
@@ -44,7 +53,9 @@ export function AppSidebar() {
               />
             </div>
             {state === "expanded" && (
-              <span className="font-semibold text-xl leading-none tracking-tight">Simplex</span>
+              <span className="font-semibold text-xl leading-none tracking-tight">
+                Simplex
+              </span>
             )}
           </div>
         </div>
@@ -55,16 +66,17 @@ export function AppSidebar() {
             <SidebarMenu className="space-y-1">
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton 
-                    asChild 
+                  <SidebarMenuButton
+                    asChild
                     isActive={isActive(item.url)}
-                     size="lg"
+                    size="lg"
                     tooltip={item.title}
                     className={`
                       transition-smooth group-data-[collapsible=icon]:mx-auto
-                      ${isActive(item.url) 
-                        ? 'bg-primary text-primary-foreground shadow-soft' 
-                        : 'hover:bg-secondary'
+                      ${
+                        isActive(item.url)
+                          ? "bg-primary text-primary-foreground shadow-soft"
+                          : "hover:bg-secondary"
                       }
                     `}
                   >

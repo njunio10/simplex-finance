@@ -34,18 +34,18 @@ export default function CurrencyConverter() {
     const amountNum = parseFloat(amount) || 0;
     const fromRate = getRate(fromCurrency);
     const toRate = getRate(toCurrency);
-    
+
     // Convert to BRL first, then to target currency
     const inBRL = fromCurrency === "BRL" ? amountNum : amountNum / fromRate;
     const result = toCurrency === "BRL" ? inBRL : inBRL * toRate;
-    
+
     return result;
   };
 
   const getExchangeRate = () => {
     const fromRate = getRate(fromCurrency);
     const toRate = getRate(toCurrency);
-    
+
     if (fromCurrency === "BRL") {
       return toRate;
     } else if (toCurrency === "BRL") {
@@ -69,24 +69,58 @@ export default function CurrencyConverter() {
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2 ">
         <Card className="shadow-soft">
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0">
             <CardTitle>Conversor</CardTitle>
+            <Button variant="outline" onClick={swapCurrencies}>
+              <ArrowRightLeft className="h-4 w-4" />
+              Inverter
+            </Button>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* From Currency */}
-            <div className="space-y-2">
-              <Label>De</Label>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <Input
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  placeholder="0.00"
-                  step="0.01"
-                />
-                <Select value={fromCurrency} onValueChange={setFromCurrency}>
+            {/* Converter Stack with centered swap button */}
+            <div className="relative py-2">
+              {/* From Currency */}
+              <div className="space-y-2">
+                <Label>De</Label>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <Input
+                    type="number"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    placeholder="0.00"
+                    step="0.01"
+                  />
+                  <Select value={fromCurrency} onValueChange={setFromCurrency}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {currencies.map((currency) => (
+                        <SelectItem key={currency.code} value={currency.code}>
+                          {currency.code} - {currency.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Swap Button - perfectly centered between sections */}
+              {/* <Button
+                variant="outline"
+                size="icon"
+                onClick={swapCurrencies}
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full z-10"
+              >
+                <ArrowRightLeft className="h-4 w-4" />
+              </Button> */}
+
+              {/* To Currency */}
+              <div className="space-y-2 mt-5">
+                <Label>Para</Label>
+                <Select value={toCurrency} onValueChange={setToCurrency}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -101,35 +135,6 @@ export default function CurrencyConverter() {
               </div>
             </div>
 
-            {/* Swap Button */}
-            <div className="flex justify-center">
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={swapCurrencies}
-                className="rounded-full"
-              >
-                <ArrowRightLeft className="h-4 w-4" />
-              </Button>
-            </div>
-
-            {/* To Currency */}
-            <div className="space-y-2">
-              <Label>Para</Label>
-              <Select value={toCurrency} onValueChange={setToCurrency}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {currencies.map((currency) => (
-                    <SelectItem key={currency.code} value={currency.code}>
-                      {currency.code} - {currency.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
             {/* Result */}
             <div className="pt-4 border-t">
               <div className="space-y-2">
@@ -138,8 +143,8 @@ export default function CurrencyConverter() {
                   {calculateConversion().toFixed(2)} {toCurrency}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Taxa de câmbio: 1 {fromCurrency} = {getExchangeRate().toFixed(4)}{" "}
-                  {toCurrency}
+                  Taxa de câmbio: 1 {fromCurrency} ={" "}
+                  {getExchangeRate().toFixed(4)} {toCurrency}
                 </p>
               </div>
             </div>
