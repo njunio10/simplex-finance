@@ -25,7 +25,7 @@ const Index = () => {
       <div className="flex min-h-screen w-full bg-background">
         <AppSidebar />
         <div className="flex-1 flex flex-col">
-          <header className="h-16 border-b border-border/50 flex items-center px-8 glass sticky top-0 z-10">
+          <header className="h-16 border-b border-border/50 flex items-center px-4 sm:px-6 md:px-8 glass sticky top-0 z-10">
             <SidebarTrigger className="hover:bg-secondary rounded-xl transition-smooth" />
             <div className="ml-auto flex items-center gap-3">
               <ThemeToggle />
@@ -82,7 +82,7 @@ const Index = () => {
               </DropdownMenu>
             </div>
           </header>
-          <main className="flex-1 p-8 md:p-10 lg:p-12">
+          <main className="flex-1 p-4 sm:p-6 md:p-10 lg:p-12">
             <div className="max-w-7xl mx-auto animate-fade-in">
               <Outlet />
             </div>

@@ -71,9 +71,13 @@ export default function CurrencyConverter() {
 
       <div className="grid gap-6 md:grid-cols-2 ">
         <Card className="shadow-soft">
-          <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0">
+          <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between space-y-0">
             <CardTitle>Conversor</CardTitle>
-            <Button variant="outline" onClick={swapCurrencies}>
+            <Button
+              variant="outline"
+              onClick={swapCurrencies}
+              className="w-full sm:w-auto"
+            >
               <ArrowRightLeft className="h-4 w-4" />
               Inverter
             </Button>
@@ -139,7 +143,7 @@ export default function CurrencyConverter() {
             <div className="pt-4 border-t">
               <div className="space-y-2">
                 <p className="text-sm text-muted-foreground">Resultado</p>
-                <p className="text-4xl font-bold text-primary">
+                <p className="text-3xl sm:text-4xl font-bold text-primary">
                   {calculateConversion().toFixed(2)} {toCurrency}
                 </p>
                 <p className="text-sm text-muted-foreground">

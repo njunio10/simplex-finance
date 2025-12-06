@@ -135,7 +135,10 @@ export function TransactionModal({
                 step="0.01"
                 value={formData.amount}
                 onChange={(e) =>
-                  setFormData({ ...formData, amount: parseFloat(e.target.value) })
+                  setFormData({
+                    ...formData,
+                    amount: parseFloat(e.target.value),
+                  })
                 }
                 placeholder="0.00"
                 required
@@ -176,15 +179,18 @@ export function TransactionModal({
               />
             </div>
           </div>
-          <DialogFooter>
+          <DialogFooter className="!flex !flex-row w-full justify-end gap-2">
             <Button
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
+              className="flex-1"
             >
               Cancelar
             </Button>
-            <Button type="submit">Salvar</Button>
+            <Button type="submit" className="flex-1">
+              Salvar
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

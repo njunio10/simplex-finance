@@ -114,14 +114,17 @@ export default function Transactions() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-bold">Transações</h1>
           <p className="text-muted-foreground">
             Gerencie suas receitas e despesas
           </p>
         </div>
-        <Button onClick={() => setIsModalOpen(true)} className="gap-2">
+        <Button
+          onClick={() => setIsModalOpen(true)}
+          className="gap-2 w-full sm:w-auto"
+        >
           <Plus className="h-4 w-4" />
           Nova Transação
         </Button>
@@ -132,7 +135,7 @@ export default function Transactions() {
           <CardTitle>Filtros</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
             <div className="relative">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
@@ -174,78 +177,142 @@ export default function Transactions() {
           <CardTitle>Histórico</CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Data</TableHead>
-                <TableHead>Descrição</TableHead>
-                <TableHead>Categoria</TableHead>
-                <TableHead>Tipo</TableHead>
-                <TableHead className="text-left">Valor</TableHead>
-                <TableHead className="text-right">Ações</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredTransactions.map((transaction) => (
-                <TableRow key={transaction.id}>
-                  <TableCell>
-                    {new Date(transaction.date).toLocaleDateString("pt-BR")}
-                  </TableCell>
-                  <TableCell className="font-medium">
-                    {transaction.description}
-                  </TableCell>
-                  <TableCell>{transaction.category}</TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={
-                        transaction.type === "income"
-                          ? "default"
-                          : "destructive"
-                      }
-                      className={
-                        transaction.type === "income" ? "bg-success" : ""
-                      }
-                    >
-                      {transaction.type === "income" ? "Receita" : "Despesa"}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-left font-medium">
-                    <span className="inline-flex items-baseline justify-start tabular-nums font-mono">
-                      <span className="inline-block w-3 text-muted-foreground">
-                        {transaction.type === "income" ? "+" : "-"}
-                      </span>
-                      {transaction.amount.toLocaleString("pt-BR", {
-                        style: "currency",
-                        currency: "BRL",
-                      })}
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        className="rounded-xl bg-secondary text-muted-foreground hover:bg-secondary/80"
-                        onClick={() => handleEdit(transaction)}
-                        aria-label="Editar"
-                      >
-                        <Pencil className="!h-4 !w-4" />
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        className="rounded-xl bg-secondary text-destructive hover:bg-secondary/80"
-                        onClick={() => handleDelete(transaction.id)}
-                        aria-label="Excluir"
-                      >
-                        <Trash2 className="!h-4 !w-4" />
-                      </Button>
-                    </div>
-                  </TableCell>
+          {/* Desktop: tabela */}
+          <div className="hidden md:block">
+            <Table className="min-w-[720px]">
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Data</TableHead>
+                  <TableHead>Descrição</TableHead>
+                  <TableHead>Categoria</TableHead>
+                  <TableHead>Tipo</TableHead>
+                  <TableHead className="text-left">Valor</TableHead>
+                  <TableHead className="text-right">Ações</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {filteredTransactions.map((transaction) => (
+                  <TableRow key={transaction.id}>
+                    <TableCell>
+                      {new Date(transaction.date).toLocaleDateString("pt-BR")}
+                    </TableCell>
+                    <TableCell className="font-medium">
+                      {transaction.description}
+                    </TableCell>
+                    <TableCell>{transaction.category}</TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={
+                          transaction.type === "income"
+                            ? "default"
+                            : "destructive"
+                        }
+                        className={
+                          transaction.type === "income" ? "bg-success" : ""
+                        }
+                      >
+                        {transaction.type === "income" ? "Receita" : "Despesa"}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-left font-medium">
+                      <span className="inline-flex items-baseline justify-start tabular-nums font-mono">
+                        <span className="inline-block w-3 text-muted-foreground">
+                          {transaction.type === "income" ? "+" : "-"}
+                        </span>
+                        {transaction.amount.toLocaleString("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        })}
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <Button
+                          variant="secondary"
+                          size="icon"
+                          className="rounded-xl bg-secondary text-muted-foreground hover:bg-secondary/80"
+                          onClick={() => handleEdit(transaction)}
+                          aria-label="Editar"
+                        >
+                          <Pencil className="!h-4 !w-4" />
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          size="icon"
+                          className="rounded-xl bg-secondary text-destructive hover:bg-secondary/80"
+                          onClick={() => handleDelete(transaction.id)}
+                          aria-label="Excluir"
+                        >
+                          <Trash2 className="!h-4 !w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          {/* Mobile: lista de cartões */}
+          <div className="md:hidden space-y-3">
+            {filteredTransactions.map((transaction) => (
+              <div
+                key={transaction.id}
+                className="rounded-xl bg-secondary/50 p-4 space-y-3"
+              >
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-muted-foreground">
+                    {new Date(transaction.date).toLocaleDateString("pt-BR")}
+                  </p>
+                  <Badge
+                    variant={
+                      transaction.type === "income" ? "default" : "destructive"
+                    }
+                    className={
+                      transaction.type === "income" ? "bg-success" : ""
+                    }
+                  >
+                    {transaction.type === "income" ? "Receita" : "Despesa"}
+                  </Badge>
+                </div>
+                <div className="space-y-1">
+                  <p className="font-medium">{transaction.description}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {transaction.category}
+                  </p>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="font-mono font-semibold tabular-nums">
+                    {transaction.type === "income" ? "+" : "-"}
+                    {transaction.amount.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </span>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="secondary"
+                      size="icon"
+                      className="rounded-xl bg-secondary text-muted-foreground hover:bg-secondary/80"
+                      onClick={() => handleEdit(transaction)}
+                      aria-label="Editar"
+                    >
+                      <Pencil className="!h-4 !w-4" />
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="icon"
+                      className="rounded-xl bg-secondary text-destructive hover:bg-secondary/80"
+                      onClick={() => handleDelete(transaction.id)}
+                      aria-label="Excluir"
+                    >
+                      <Trash2 className="!h-4 !w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
 

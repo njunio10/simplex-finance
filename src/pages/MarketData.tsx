@@ -20,14 +20,14 @@ const mockCurrencies = [
 
 const mockTopGainers = [
   { symbol: "PETR4", name: "Petrobras", price: 38.45, change: 4.8 },
-  { symbol: "VALE3", name: "Vale", price: 62.30, change: 3.2 },
-  { symbol: "ITUB4", name: "Itaú", price: 28.90, change: 2.7 },
+  { symbol: "VALE3", name: "Vale", price: 62.3, change: 3.2 },
+  { symbol: "ITUB4", name: "Itaú", price: 28.9, change: 2.7 },
 ];
 
 const mockTopLosers = [
   { symbol: "MGLU3", name: "Magazine Luiza", price: 2.15, change: -5.2 },
   { symbol: "VVAR3", name: "Via Varejo", price: 1.82, change: -4.1 },
-  { symbol: "AZUL4", name: "Azul", price: 9.20, change: -3.8 },
+  { symbol: "AZUL4", name: "Azul", price: 9.2, change: -3.8 },
 ];
 
 export default function MarketData() {
@@ -46,36 +46,69 @@ export default function MarketData() {
           <CardTitle>Cotações de Moedas</CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Moeda</TableHead>
-                <TableHead>Nome</TableHead>
-                <TableHead className="text-right">Cotação (BRL)</TableHead>
-                <TableHead className="text-right">Variação</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {mockCurrencies.map((currency) => (
-                <TableRow key={currency.code}>
-                  <TableCell className="font-medium">{currency.code}</TableCell>
-                  <TableCell>{currency.name}</TableCell>
-                  <TableCell className="text-right">
-                    R$ {currency.rate.toFixed(4)}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Badge
-                      variant={currency.change >= 0 ? "default" : "destructive"}
-                      className={currency.change >= 0 ? "bg-success" : ""}
-                    >
-                      {currency.change >= 0 ? "+" : ""}
-                      {currency.change.toFixed(2)}%
-                    </Badge>
-                  </TableCell>
+          {/* Desktop: tabela */}
+          <div className="hidden md:block">
+            <Table className="min-w-[640px]">
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Moeda</TableHead>
+                  <TableHead>Nome</TableHead>
+                  <TableHead className="text-right">Cotação (BRL)</TableHead>
+                  <TableHead className="text-right">Variação</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {mockCurrencies.map((currency) => (
+                  <TableRow key={currency.code}>
+                    <TableCell className="font-medium">
+                      {currency.code}
+                    </TableCell>
+                    <TableCell>{currency.name}</TableCell>
+                    <TableCell className="text-right">
+                      R$ {currency.rate.toFixed(4)}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Badge
+                        variant={
+                          currency.change >= 0 ? "default" : "destructive"
+                        }
+                        className={currency.change >= 0 ? "bg-success" : ""}
+                      >
+                        {currency.change >= 0 ? "+" : ""}
+                        {currency.change.toFixed(2)}%
+                      </Badge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          {/* Mobile: lista */}
+          <div className="md:hidden space-y-2">
+            {mockCurrencies.map((currency) => (
+              <div
+                key={currency.code}
+                className="flex items-center justify-between p-3 rounded-lg bg-muted/50"
+              >
+                <div>
+                  <p className="font-medium">{currency.code}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {currency.name}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="font-medium">R$ {currency.rate.toFixed(4)}</p>
+                  <Badge
+                    variant={currency.change >= 0 ? "default" : "destructive"}
+                    className={currency.change >= 0 ? "bg-success" : ""}
+                  >
+                    {currency.change >= 0 ? "+" : ""}
+                    {currency.change.toFixed(2)}%
+                  </Badge>
+                </div>
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
 
@@ -97,12 +130,12 @@ export default function MarketData() {
                 >
                   <div>
                     <p className="font-medium">{stock.symbol}</p>
-                    <p className="text-sm text-muted-foreground">{stock.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {stock.name}
+                    </p>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium">
-                      R$ {stock.price.toFixed(2)}
-                    </p>
+                    <p className="font-medium">R$ {stock.price.toFixed(2)}</p>
                     <Badge variant="default" className="bg-success">
                       +{stock.change.toFixed(2)}%
                     </Badge>
@@ -130,12 +163,12 @@ export default function MarketData() {
                 >
                   <div>
                     <p className="font-medium">{stock.symbol}</p>
-                    <p className="text-sm text-muted-foreground">{stock.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {stock.name}
+                    </p>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium">
-                      R$ {stock.price.toFixed(2)}
-                    </p>
+                    <p className="font-medium">R$ {stock.price.toFixed(2)}</p>
                     <Badge variant="destructive">
                       {stock.change.toFixed(2)}%
                     </Badge>

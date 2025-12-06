@@ -18,10 +18,38 @@ interface Transaction {
 }
 
 const mockTransactions: Transaction[] = [
-  { id: "1", description: "Salário", amount: 5000, category: "Salário", date: "2024-01-15", type: "income" },
-  { id: "2", description: "Aluguel", amount: -1500, category: "Moradia", date: "2024-01-10", type: "expense" },
-  { id: "3", description: "Supermercado", amount: -350, category: "Alimentação", date: "2024-01-08", type: "expense" },
-  { id: "4", description: "Freelance", amount: 800, category: "Freelance", date: "2024-01-05", type: "income" },
+  {
+    id: "1",
+    description: "Salário",
+    amount: 5000,
+    category: "Salário",
+    date: "2024-01-15",
+    type: "income",
+  },
+  {
+    id: "2",
+    description: "Aluguel",
+    amount: -1500,
+    category: "Moradia",
+    date: "2024-01-10",
+    type: "expense",
+  },
+  {
+    id: "3",
+    description: "Supermercado",
+    amount: -350,
+    category: "Alimentação",
+    date: "2024-01-08",
+    type: "expense",
+  },
+  {
+    id: "4",
+    description: "Freelance",
+    amount: 800,
+    category: "Freelance",
+    date: "2024-01-05",
+    type: "income",
+  },
 ];
 
 export function TransactionList() {
@@ -34,18 +62,21 @@ export function TransactionList() {
         {transactions.map((transaction) => (
           <div
             key={transaction.id}
-            className="flex items-center justify-between p-4 rounded-xl bg-secondary/50 hover:bg-secondary transition-smooth"
+            className="flex items-center justify-between gap-3 p-3 sm:p-4 rounded-xl bg-secondary/50 hover:bg-secondary transition-smooth"
           >
-            <div className="flex-1">
-              <p className="font-medium">{transaction.description}</p>
-              <p className="text-sm text-muted-foreground">
-                {new Date(transaction.date).toLocaleDateString("pt-BR")} • {transaction.category}
+            <div className="flex-1 min-w-0">
+              <p className="font-medium truncate">{transaction.description}</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">
+                {new Date(transaction.date).toLocaleDateString("pt-BR")} •{" "}
+                {transaction.category}
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <span
-                className={`font-semibold ${
-                  transaction.type === "income" ? "text-success" : "text-destructive"
+                className={`font-semibold whitespace-nowrap text-right ${
+                  transaction.type === "income"
+                    ? "text-success"
+                    : "text-destructive"
                 }`}
               >
                 {transaction.amount > 0 ? "+" : ""}
@@ -56,7 +87,11 @@ export function TransactionList() {
               </span>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 rounded-lg"
+                  >
                     <MoreVertical className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>

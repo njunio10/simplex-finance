@@ -4,7 +4,13 @@ const mockRates = [
   { currency: "USD", name: "Dólar", rate: 4.98, change: 0.5, positive: true },
   { currency: "EUR", name: "Euro", rate: 5.42, change: -0.3, positive: false },
   { currency: "GBP", name: "Libra", rate: 6.31, change: 0.2, positive: true },
-  { currency: "BTC", name: "Bitcoin", rate: 230500, change: 2.1, positive: true },
+  {
+    currency: "BTC",
+    name: "Bitcoin",
+    rate: 230500,
+    change: 2.1,
+    positive: true,
+  },
 ];
 
 export function CurrencyRates() {
@@ -15,11 +21,13 @@ export function CurrencyRates() {
         {mockRates.map((rate) => (
           <div
             key={rate.currency}
-            className="flex items-center justify-between p-3 rounded-xl bg-secondary/50 hover:bg-secondary transition-smooth"
+            className="flex items-center justify-between gap-3 p-3 rounded-xl bg-secondary/50 hover:bg-secondary transition-smooth"
           >
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-xl bg-muted flex items-center justify-center">
-                <span className="font-semibold text-sm">{rate.currency.slice(0, 2)}</span>
+                <span className="font-semibold text-sm">
+                  {rate.currency.slice(0, 2)}
+                </span>
               </div>
               <div>
                 <p className="font-medium">{rate.currency}</p>
@@ -28,7 +36,10 @@ export function CurrencyRates() {
             </div>
             <div className="text-right">
               <p className="font-semibold">
-                R$ {rate.rate.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                R${" "}
+                {rate.rate.toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}
               </p>
               <div className="flex items-center justify-end gap-1">
                 {rate.positive ? (
@@ -41,7 +52,8 @@ export function CurrencyRates() {
                     rate.positive ? "text-success" : "text-destructive"
                   }`}
                 >
-                  {rate.positive ? "+" : ""}{rate.change}%
+                  {rate.positive ? "+" : ""}
+                  {rate.change}%
                 </span>
               </div>
             </div>

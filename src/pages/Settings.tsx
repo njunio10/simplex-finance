@@ -27,18 +27,18 @@ export default function Settings() {
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="flex items-center gap-6">
+          <div className="flex flex-col sm:flex-row items-center gap-6">
             <Avatar className="h-20 w-20">
               <AvatarImage src="/foto.png" alt="Profile" />
               <AvatarFallback className="bg-primary text-primary-foreground text-2xl">
                 JD
               </AvatarFallback>
             </Avatar>
-            <div>
+            <div className="flex flex-col items-center sm:items-start">
               <Button variant="outline" size="sm">
                 Alterar Foto
               </Button>
-              <p className="text-sm text-muted-foreground mt-1">
+              <p className="text-sm text-muted-foreground mt-1 text-center sm:text-left">
                 JPG, PNG ou GIF (max. 2MB)
               </p>
             </div>
@@ -95,8 +95,8 @@ export default function Settings() {
             </div>
           </div>
 
-          <div className="flex gap-3 justify-end">
-            <Button>Salvar Alterações</Button>
+          <div className="flex gap-3 sm:justify-end">
+            <Button className="w-full sm:w-auto">Salvar Alterações</Button>
           </div>
         </CardContent>
       </Card>
