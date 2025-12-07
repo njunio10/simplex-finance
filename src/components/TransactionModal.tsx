@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { TrendingDown, TrendingUp } from "lucide-react";
 
 interface Transaction {
   id: string;
@@ -97,21 +98,70 @@ export function TransactionModal({
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
-              <Label htmlFor="type">Tipo</Label>
-              <Select
-                value={formData.type}
-                onValueChange={(value: "income" | "expense") =>
-                  setFormData({ ...formData, type: value })
-                }
-              >
-                <SelectTrigger id="type">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="income">Receita</SelectItem>
-                  <SelectItem value="expense">Despesa</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label htmlFor="type">Tipo de Transação</Label>
+              <div className="grid grid-cols-2 gap-3" id="type">
+                <button
+                  type="button"
+                  aria-pressed={formData.type === "income"}
+                  onClick={() => setFormData({ ...formData, type: "income" })}
+                  className={`rounded-xl border p-4 text-left transition-smooth ${
+                    formData.type === "income"
+                      ? "bg-[#22c55e]/10 border-[#22c55e]"
+                      : "hover:bg-muted/50"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <TrendingUp
+                      className={`h-5 w-5 ${
+                        formData.type === "income"
+                          ? "text-[#22c55e]"
+                          : "text-muted-foreground"
+                      }`}
+                    />
+                    <span
+                      className={`font-semibold ${
+                        formData.type === "income" ? "text-[#16a34a]" : ""
+                      }`}
+                    >
+                      Receita
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Dinheiro que entra
+                  </p>
+                </button>
+
+                <button
+                  type="button"
+                  aria-pressed={formData.type === "expense"}
+                  onClick={() => setFormData({ ...formData, type: "expense" })}
+                  className={`rounded-xl border p-4 text-left transition-smooth ${
+                    formData.type === "expense"
+                      ? "bg-[#ef4444]/10 border-[#ef4444]"
+                      : "hover:bg-muted/50"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <TrendingDown
+                      className={`h-5 w-5 ${
+                        formData.type === "expense"
+                          ? "text-[#ef4444]"
+                          : "text-muted-foreground"
+                      }`}
+                    />
+                    <span
+                      className={`font-semibold ${
+                        formData.type === "expense" ? "text-[#dc2626]" : ""
+                      }`}
+                    >
+                      Despesa
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Dinheiro que sai
+                  </p>
+                </button>
+              </div>
             </div>
 
             <div className="grid gap-2">

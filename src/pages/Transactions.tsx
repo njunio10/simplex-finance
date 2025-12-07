@@ -20,6 +20,16 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { TransactionModal } from "@/components/TransactionModal";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface Transaction {
   id: string;
@@ -72,6 +82,9 @@ export default function Transactions() {
   const [editingTransaction, setEditingTransaction] = useState<
     Transaction | undefined
   >();
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [transactionToDelete, setTransactionToDelete] =
+    useState<Transaction | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<string>("all");
   const [filterCategory, setFilterCategory] = useState<string>("all");
@@ -110,6 +123,19 @@ export default function Transactions() {
 
   const handleDelete = (id: string) => {
     setTransactions(transactions.filter((t) => t.id !== id));
+  };
+
+  const openDeleteDialog = (transaction: Transaction) => {
+    setTransactionToDelete(transaction);
+    setIsDeleteOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (transactionToDelete) {
+      handleDelete(transactionToDelete.id);
+    }
+    setIsDeleteOpen(false);
+    setTransactionToDelete(null);
   };
 
   return (
@@ -240,7 +266,7 @@ export default function Transactions() {
                           variant="secondary"
                           size="icon"
                           className="rounded-xl bg-secondary text-destructive hover:bg-secondary/80"
-                          onClick={() => handleDelete(transaction.id)}
+                          onClick={() => openDeleteDialog(transaction)}
                           aria-label="Excluir"
                         >
                           <Trash2 className="!h-4 !w-4" />
@@ -303,7 +329,7 @@ export default function Transactions() {
                       variant="secondary"
                       size="icon"
                       className="rounded-xl bg-secondary text-destructive hover:bg-secondary/80"
-                      onClick={() => handleDelete(transaction.id)}
+                      onClick={() => openDeleteDialog(transaction)}
                       aria-label="Excluir"
                     >
                       <Trash2 className="!h-4 !w-4" />
@@ -322,6 +348,29 @@ export default function Transactions() {
         transaction={editingTransaction}
         onSave={handleSave}
       />
+      <AlertDialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Excluir transação?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {transactionToDelete
+                ? `Tem certeza que deseja excluir "${transactionToDelete.description}"? Esta ação não pode ser desfeita.`
+                : "Tem certeza que deseja excluir esta transação? Esta ação não pode ser desfeita."}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="w-full sm:flex-1">
+              Cancelar
+            </AlertDialogCancel>
+            <AlertDialogAction
+              className="w-full sm:flex-1 bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={confirmDelete}
+            >
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
