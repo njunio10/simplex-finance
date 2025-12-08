@@ -3,7 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -21,11 +27,15 @@ export default function Signup() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-2">
-          <div className="inline-block h-16 w-16 rounded-2xl gradient-primary flex items-center justify-center mb-4 shadow-medium">
-            <span className="text-white font-bold text-2xl">F</span>
-          </div>
+          <img
+            src="/simplex-removebg-preview.png"
+            alt="Simplex"
+            className="mx-auto h-16 w-16 mb-4 object-contain"
+          />
           <h1 className="text-3xl font-bold">Crie sua conta</h1>
-          <p className="text-muted-foreground">Comece a gerenciar suas finanças hoje</p>
+          <p className="text-muted-foreground">
+            Comece a gerenciar suas finanças hoje
+          </p>
         </div>
 
         <Card className="shadow-large">
@@ -68,7 +78,7 @@ export default function Signup() {
                   required
                 />
               </div>
-              <Button type="submit" className="w-full gradient-primary shadow-medium">
+              <Button type="submit" className="w-full">
                 Criar conta
               </Button>
             </form>

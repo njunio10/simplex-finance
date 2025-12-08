@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/sidebar";
 
 const menuItems = [
-  { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Transações", url: "/transactions", icon: ArrowLeftRight },
   { title: "Orçamentos/Metas", url: "/budgets", icon: Target },
   { title: "Cotações/Investimentos", url: "/market-data", icon: TrendingUp },
@@ -32,8 +32,7 @@ export function AppSidebar() {
   const currentPath = location.pathname;
 
   const isActive = (path: string) => {
-    if (path === "/") return currentPath === "/";
-    return currentPath.startsWith(path);
+    return currentPath === path || currentPath.startsWith(path + "/");
   };
 
   return (
@@ -82,7 +81,7 @@ export function AppSidebar() {
                   >
                     <NavLink
                       to={item.url}
-                      end={item.url === "/"}
+                      end={item.url === "/dashboard"}
                       className="flex items-center gap-3"
                     >
                       <item.icon strokeWidth={1.5} />

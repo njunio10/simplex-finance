@@ -3,7 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,18 +19,22 @@ export default function Login() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     // Simular login
-    navigate("/");
+    navigate("/dashboard");
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-2">
-          <div className="inline-block h-16 w-16 rounded-2xl gradient-primary flex items-center justify-center mb-4 shadow-medium">
-            <span className="text-white font-bold text-2xl">F</span>
-          </div>
+          <img
+            src="/simplex-removebg-preview.png"
+            alt="Simplex"
+            className="mx-auto h-16 w-16 mb-4 object-contain"
+          />
           <h1 className="text-3xl font-bold">Bem-vindo de volta</h1>
-          <p className="text-muted-foreground">Entre com suas credenciais para continuar</p>
+          <p className="text-muted-foreground">
+            Entre com suas credenciais para continuar
+          </p>
         </div>
 
         <Card className="shadow-large">
@@ -56,15 +66,12 @@ export default function Login() {
                   required
                 />
               </div>
-              <Button type="submit" className="w-full gradient-primary shadow-medium">
+              <Button type="submit" className="w-full">
                 Entrar
               </Button>
             </form>
 
             <div className="mt-6 text-center space-y-2">
-              <Button variant="link" className="text-sm text-muted-foreground">
-                Esqueceu a senha?
-              </Button>
               <div className="text-sm text-muted-foreground">
                 Não tem conta?{" "}
                 <Button

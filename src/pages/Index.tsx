@@ -73,7 +73,7 @@ const Index = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="text-destructive cursor-pointer"
-                    onSelect={() => console.log("logout")}
+                    onSelect={() => navigate("/login")}
                   >
                     <LogOut className="mr-2 h-4 w-4" />
                     Sair
